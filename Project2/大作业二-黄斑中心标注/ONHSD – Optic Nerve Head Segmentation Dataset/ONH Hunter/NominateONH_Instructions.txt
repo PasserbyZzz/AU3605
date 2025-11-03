@@ -1,0 +1,70 @@
+Using the ONH Markup Program
+============================
+
+Andrew Hunter, 12/7/02
+
+Installing
+----------
+
+Copy the entire contents of the CD to a directory on the hard
+disk. This includes the image set and the MATLAB code.
+
+The markup program
+------------------
+
+There is a separate program each for Ansu and Bob.
+To run Ansu's version, type:
+
+> AnsuONH
+
+at the MATLAB prompt. That allows you to markup all
+the images. To markup just a single one, type e.g.
+
+> AnsuONH( 1 ) 
+
+to do the first one. To do a range (say 3-7 inclusive):
+
+> AnsuONH( 3:7 )
+
+To run Bob's version, use "BobONH" instead of "AnsuONH".
+
+When the program runs, you see the image to be marked up.
+There are lines radiating from the estimated ONH
+centre (which may be wrong - don't worry about that). You need 
+to click on the point where each radial line crosses the ONH
+rim. When you do that, a cyan marker is shown. You can click again
+if you misplace one, and can do them in any order.
+
+If you want to see what the image looks like without the lines on
+it, click in the left or top margin of the image window (i.e. outside
+the image itself, on the grey background area). This will toggle the
+display of the lines on and off, so click a second time to redisplay the
+lines. This can be quite helpful in deciding exactly where the edge is.
+
+When you have finished an image, press the <RETURN> key. The program will
+then display the next image in the sequence.
+
+If you get prematurely bored, you can press CTRL+C to end the program.
+This won't do any harm, except for losing the results of the last image -
+any previous ones are unaffected.
+
+You can run the program again as many times as you like. To review results,
+just run it and press <RETURN> without altering the position of any of the 
+edge lines.
+
+Some images cannot be processed. This includes: images with cataract, images
+where the centre point is outside the ONH, images where the centre point is
+so close to the edge of the ONH that, even though it is inside, its impossible
+to mark up. You should ignore all these images (just press <RETURN> to move
+onto the next one).
+
+Guessing
+--------
+
+The objective of the exercise is to find out how consistent the algorithm is
+with human expertise. Therefore, don't worry if you can't see the edge on
+some spokes, or think the position is ill-defined - just use your best-guess.
+The algorithm will have to do the same, and we will assess its performance
+according to its consistency with our expert human guessers. The amount of
+variation between your expert opinions on the edge location will also help
+to quantify how uncertain the edge position is.
