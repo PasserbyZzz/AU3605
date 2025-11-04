@@ -36,11 +36,11 @@ def find_boundary_samples_and_positions(
     T_g: float
 ) -> Tuple[List[float], Set[Tuple[int, int]]]:
     """
-    实现论文第3节(第5页)的核心算法。
+    实现论文的核心算法。
     
     返回:
-        - (List[float]): 采样点的灰度值列表 (用于 Fig. 27 a1-c1)
-        - (Set[Tuple[int, int]]): 贡献采样的 *像素* 坐标 (用于 Fig. 27 a-c)
+        - (List[float]): 采样点的灰度值列表
+        - (Set[Tuple[int, int]]): 贡献采样的 *像素* 坐标
     """
     height, width = image_gray.shape
     boundary_samples = []
@@ -85,11 +85,11 @@ def generate_gradient_sensitivity_plot(
     output_dir: Path
 ):
     """
-    生成 Fig. 27 (a)-(c), (a1)-(c1), (a2)-(c2) 的 3xN 组合图
+    生成 3xN 组合图
     """
     num_thresholds = len(analysis_results)
     fig, axes = plt.subplots(3, num_thresholds, figsize=(7 * num_thresholds, 18))
-    fig.suptitle('复现论文 5.2 节：梯度阈值 $T_g$ 敏感性分析 (Fig. 27 - Girl)', fontsize=20)
+    fig.suptitle('梯度阈值 $T$ 敏感性分析', fontsize=20)
     
     threshold_summary = []
 
@@ -100,7 +100,7 @@ def generate_gradient_sensitivity_plot(
         threshold = res['threshold']
         binary_image = res['binary_image']
         
-        # --- Row 1: Fig. 27 (a)-(c) (边缘图) ---
+        # --- Row 1: 边缘图 ---
         ax_map = axes[0, col]
         # 创建边缘图
         edge_map_image = np.zeros_like(image_gray)
@@ -109,11 +109,12 @@ def generate_gradient_sensitivity_plot(
             rows, cols = zip(*positions)
             edge_map_image[rows, cols] = 255
         
+        edge_map_image = cv2.bitwise_not(edge_map_image)
         ax_map.imshow(edge_map_image, cmap='gray')
         ax_map.set_title(f"边缘图\n$T_g = {T_g}$", fontsize=16)
         ax_map.axis('off')
         
-        # --- Row 2: Fig. 27 (a1)-(c1) (边界采样直方图) ---
+        # --- Row 2: 边界采样直方图 ---
         ax_hist = axes[1, col]
         if samples:
             ax_hist.hist(samples, bins=50, range=[0, 255], color='darkgreen')
@@ -129,7 +130,7 @@ def generate_gradient_sensitivity_plot(
         ax_hist.set_xlim([0, 255])
         ax_hist.grid(True, linestyle='--', alpha=0.3)
         
-        # --- Row 3: Fig. 27 (a2)-(c2) (分割结果) ---
+        # --- Row 3: 分割结果 ---
         ax_seg = axes[2, col]
         ax_seg.imshow(binary_image, cmap='gray')
         ax_seg.set_title(f"分割结果\n最终阈值 = {threshold:.1f}", fontsize=16)
@@ -138,7 +139,7 @@ def generate_gradient_sensitivity_plot(
         threshold_summary.append(f"T_g = {T_g: <5.1f}  ->  阈值 r = {threshold: <5.1f}  (论文值: {res['expected']})")
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    fig_path = output_dir / "Gradient_Sensitivity_Analysis(girl).png"
+    fig_path = output_dir / "Gradient_Sensitivity_Analysis(baboon).png"
     plt.savefig(fig_path, dpi=300)
     print(f"  已保存综合对比图: {fig_path}")
     plt.close()
@@ -157,18 +158,18 @@ def generate_gradient_sensitivity_plot(
 
 def main():
     """
-    脚本主入口：运行 5.2 节的 $T_g$ 敏感性分析复现。
+    脚本主入口：敏感性分析
     """
     
     # --- 用户配置区 ---
-    IMAGE_PATH = Path("sensitivity2thresholds/girl.bmp") 
+    IMAGE_PATH = Path("sensitivity2thresholds/baboon.bmp") 
     OUTPUT_DIR = Path("./sensitivity2thresholds")
     OUTPUT_DIR.mkdir(exist_ok=True)
     
-    # 论文第14页明确给出的三个 T_g 值
+    # 三个 T_g 值
     T_G_VALUES_TO_TEST = [40.0, 100.0, 160.0]
     
-    # 论文第14页报告的对应阈值
+    # 对应阈值
     EXPECTED_THRESHOLDS = [90, 87, 92]
     # --- 结束配置区 ---
     

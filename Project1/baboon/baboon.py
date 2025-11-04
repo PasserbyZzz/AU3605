@@ -57,7 +57,7 @@ def find_boundary_sample_points(
         image_gray (np.ndarray): 原始灰度图像 (uint8)
         gradient_magnitude (np.ndarray): 梯度幅值图像 (float64)
         laplacian_image (np.ndarray): 拉普拉斯图像 (float64)
-        T_g (float): 梯度阈值 (对应论文中的 T)
+        T_g (float): 梯度阈值 T
 
     返回:
         List[float]: 所有采样到的边界点灰度值列表
@@ -69,7 +69,7 @@ def find_boundary_sample_points(
     image_float = image_gray.astype(np.float64)
 
     # 遍历所有像素，检查其“右侧”和“下方”的边缘
-    # 这种遍历方式可确保网格中的每条边只被检查一次
+    # 确保网格中的每条边只被检查一次
     for i in range(height - 1):
         for j in range(width - 1):
             
@@ -89,7 +89,6 @@ def find_boundary_sample_points(
             
             if (l_p1 * l_p2_r < 0) and (g_p1 + g_p2_r >= T_g):
                 # 满足条件，进行线性插值
-                # 这对应论文第5页的插值方法
                 weight = abs(l_p1) / (abs(l_p1) + abs(l_p2_r))
                 gray_sample = (1 - weight) * f_p1 + weight * image_float[p2_right]
                 boundary_samples.append(gray_sample)

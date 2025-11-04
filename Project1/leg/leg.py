@@ -60,7 +60,7 @@ def find_boundary_sample_points(
             l_p2_r = laplacian_image[p2_right]
             g_p2_r = gradient_magnitude[p2_right]
             
-            # [修正] 梯度检查条件 g1 + g2 >= T_g
+            # 梯度检查条件 g1 + g2 >= T_g
             if (l_p1 * l_p2_r < 0) and (g_p1 + g_p2_r >= T_g):
                 weight = abs(l_p1) / (abs(l_p1) + abs(l_p2_r))
                 gray_sample = (1 - weight) * f_p1 + weight * image_float[p2_right]
@@ -113,7 +113,6 @@ def segment_image_by_thresholds(
     # 扩展阈值列表以方便循环 [0, t1, t2, ..., 256]
     bounds = [0.0] + sorted_thresholds + [256.0]
     
-    # (论文图20有4个区域, 图23有3个区域)
     for i in range(len(bounds) - 1):
         lower_bound = bounds[i]
         upper_bound = bounds[i+1]

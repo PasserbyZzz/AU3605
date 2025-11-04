@@ -113,7 +113,6 @@ def segment_image_by_thresholds(
     # 扩展阈值列表以方便循环 [0, t1, t2, ..., 256]
     bounds = [0.0] + sorted_thresholds + [256.0]
     
-    # (论文图20有4个区域, 图23有3个区域)
     for i in range(len(bounds) - 1):
         lower_bound = bounds[i]
         upper_bound = bounds[i+1]

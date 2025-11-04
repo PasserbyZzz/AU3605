@@ -76,7 +76,7 @@ def create_noisy_images(
     circle_radius: int = 80
 ) -> List[Tuple[str, np.ndarray]]:
     """
-    生成 Fig. 24 (a)-(d) 的四张图像。
+    生成四张图像。
     (a) 理想二值图像
     (b) 低噪声
     (c) 中噪声
@@ -121,7 +121,7 @@ def process_noise_analysis_images(
     T_g: float = 40.0
 ) -> Dict[str, Any]:
     """
-    对 Fig. 24 的四张图进行完整分析
+    对四张图进行完整分析
     """
     # 1. 生成 Fig. 24 (a)-(d)
     images_to_process = create_noisy_images()
@@ -133,10 +133,10 @@ def process_noise_analysis_images(
     for title, image in images_to_process:
         print(f"  处理中: {title}")
         
-        # 2. 计算 Fig. 25 的数据 (全局直方图)
+        # 2. 计算全局直方图的数据
         global_hist, _ = np.histogram(image.ravel(), bins=256, range=[0, 256])
-        
-        # 3. 计算 Fig. 26 的数据 (Wang & Bai 算法)
+
+        # 3. 计算边界图像的数据
         grad_mag, lap_img = calculate_image_derivatives(image)
         boundary_samples = find_boundary_sample_points(
             image, grad_mag, lap_img, T_g
@@ -145,7 +145,6 @@ def process_noise_analysis_images(
         # 计算边界直方图
         if boundary_samples:
             boundary_hist, _ = np.histogram(boundary_samples, bins=100, range=[0, 255])
-            # 论文第12页报告的阈值
             calculated_threshold = np.mean(boundary_samples)
         else:
             boundary_hist = np.zeros(100)
@@ -168,7 +167,7 @@ def generate_noise_analysis_plot(
     output_dir: Path
 ):
     """
-    生成 Fig. 24, 25, 26 的 3x4 组合图
+    生成3x4 组合图
     """
     print("正在生成 3x4 组合图...")
     fig, axes = plt.subplots(3, 4, figsize=(20, 15))
@@ -183,13 +182,13 @@ def generate_noise_analysis_plot(
         boundary_hist = res['boundary_hist']
         threshold = res['calculated_threshold']
         
-        # --- Row 1: Fig. 24 (图像) ---
+        # --- Row 1: 图像 ---
         ax_24 = axes[0, col]
         ax_24.imshow(image, cmap='gray', vmin=0, vmax=255)
         ax_24.set_title(f"{title}", fontsize=14)
         ax_24.axis('off')
         
-        # --- Row 2: Fig. 25 (全局直方图) ---
+        # --- Row 2: 全局直方图 ---
         ax_25 = axes[1, col]
         ax_25.bar(np.arange(256), global_hist, width=1.0, color='darkblue')
         ax_25.set_title(f"{title}\n全局直方图", fontsize=14)
@@ -198,7 +197,7 @@ def generate_noise_analysis_plot(
         ax_25.set_xlim([0, 255])
         ax_25.grid(True, linestyle='--', alpha=0.3)
         
-        # --- Row 3: Fig. 26 (边界采样直方图) ---
+        # --- Row 3: 边界采样直方图 ---
         ax_26 = axes[2, col]
         bin_centers = np.linspace(0, 255, len(boundary_hist))
         ax_26.bar(bin_centers, boundary_hist, width=2.5, color='darkgreen')
@@ -247,7 +246,7 @@ def main():
     OUTPUT_DIR.mkdir(exist_ok=True)
     
     # 对于 (0, 255) 的强边缘，T_g 可以设高一点。
-    GRADIENT_THRESHOLD_T_g = 50.0 
+    GRADIENT_THRESHOLD_T_g = 750.0 
     # --- 结束配置区 ---
     
     print(f"开始复现 5.1 节 噪声敏感性分析 (Fig. 24, 25, 26)")
