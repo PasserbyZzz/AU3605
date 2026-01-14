@@ -2,7 +2,7 @@
 
 ## 简介
 
-本仓库为 上海交通大学 **数字图像处理与模式识别(AU3605)** 课程大作业，完成于2025年秋季学期，任务要求详见 [大作业 1](https://github.com/PasserbyZzz/AU3605/blob/main/Project1/report/课程大作业1.pdf) 和 [平时作业](https://github.com/PasserbyZzz/AU3605/blob/main/HW1/report/平时作业.pdf)。
+本仓库为 上海交通大学 **数字图像处理与模式识别(AU3605)** 课程大作业 1 和平时作业，完成于2025年秋季学期，任务要求详见 [大作业 1](https://github.com/PasserbyZzz/AU3605/blob/main/Project1/report/课程大作业1.pdf) 和 [平时作业](https://github.com/PasserbyZzz/AU3605/blob/main/HW1/report/平时作业.pdf)。
 
 欢迎任何的 **`Issues`** 以及 **`Pull requests`**!
 
@@ -84,3 +84,4 @@
 
 
 ## **Wish for your Star⭐!**
+
