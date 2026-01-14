@@ -76,6 +76,8 @@
     - **sensitivity2thresholds**：阈值敏感性测试图像
     - **report**：大作业 1 要求与实验报告
 
+*注意：* 请以 `HW1` 或 `Project1` 为根目录运行！
+
 ## 邮箱
 
 任何疑问，欢迎邮件交流：**`passerby_zzz@sjtu.edu.cn`** !
