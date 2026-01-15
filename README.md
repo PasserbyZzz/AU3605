@@ -34,7 +34,7 @@
 
 ### 大作业 1
 
-腿部 CT 图像多阈值分割结果：
+#### 腿部 CT 图像多阈值分割
 
 <div align="center">
   <img src="Project1\leg\leg_00_multilevel_kmeans_comparison.png" 
@@ -42,7 +42,7 @@
        style="width: 70%; max-width: 800px;">
 </div>
 
-头部 CT 图像多阈值分割结果：
+#### 头部 CT 图像多阈值分割
 
 <div align="center">
   <img src="Project1\head\head_00_multilevel_kmeans_comparison.png" 
@@ -84,5 +84,6 @@
 
 
 ## **Wish for your Star⭐!**
+
 
 
