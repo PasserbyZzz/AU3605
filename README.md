@@ -81,10 +81,6 @@
 ## 邮箱
 
 任何疑问，欢迎邮件交流：**`passerby_zzz@sjtu.edu.cn`** !
-
+大作业二详见 [基于深度学习和 PCA 的眼底图像异常检测](https://github.com/HanWu9918/AU3605)。
 
 ## **Wish for your Star⭐!**
-
-
-
-
